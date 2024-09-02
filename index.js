@@ -4,13 +4,13 @@ const pino = require('pino')
 const svg = require('./utils/svg')
 const userInfo = require('./userInfo')
 const app = express()
-const path = require('path');
+const path = require('path')
 
 const logger = pino({ level: process.env.LOG_LEVEL || 'info' })
 
-app.use(express.static('public'))
+app.use(express.static(path.join(__dirname, 'public')))
 app.use(compression())
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 
 app.get("/", (req, res) => res.render('index.pug'))
