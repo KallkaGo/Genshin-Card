@@ -1,0 +1,27 @@
+{
+  "name": "testdemo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.2",
+    "b3b": "^0.0.1",
+    "compression": "^1.7.4",
+    "express": "^4.19.2",
+    "fontmin-kallka": "^1.1.0",
+    "md5": "^2.3.0",
+    "mime-types": "^2.1.35",
+    "node-cache": "^5.1.2",
+    "pino": "^9.2.0",
+    "pug": "^3.0.3",
+    "request": "^2.88.2",
+    "ttf2woff": "^3.0.0"
+  }
+}

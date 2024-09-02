@@ -1,0 +1,98 @@
+html
+  head
+    title='原神卡片生成工具'
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='icon', type='image/png', href='favicon.png')
+    link(rel='stylesheet', href='https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/light.min.css')
+    link(rel="stylesheet" ,href="https://cdnjs.cloudflare.com/ajax/libs/lxgw-wenkai-webfont/1.7.0/style.css") 
+    link(rel='stylesheet', href='style.css')
+    script.
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-KMMF9FTYBX');
+
+      function _evt_push(type, category, label){
+        gtag('event', type, {
+          'event_category' : category,
+          'event_label' : label
+        });
+      }
+
+  body
+    h3 使用方法:
+
+    h5 SVG 地址
+    code /{背景编号}/{米游社ID}.png
+
+    h5 Img 标签
+    code &lt;img src="/{背景编号}/{米游社ID}.png" alt="genshin-card" />
+
+    h5 BBCode
+    code [img]/{背景编号}/{米游社ID}.png[/img]
+
+    h5 Markdown
+    code ![](/{背景编号}/{米游社ID}.png)
+
+    h3 背景编号
+    h5 <code>rand</code> 随机背景
+    h5 指定随机范围
+    pre.
+      2,5,9 -> [2, 5, 9]
+      3-5 -> [3, 4, 5]
+      3-5,7,9,12-15 -> [3, 4, 5, 7, 9, 12, 13, 14, 15]
+
+    h3 示例:
+    img(src="/rand/203897073.png" alt="示例图片")
+
+    h3 Tool
+    .tool
+      code /
+      input#bgIdx(type='text', value='0', style='display: inline-block; width: 40px; height: 1.4em; line-height: 1.4em; margin: 0 4px; vertical-align: middle;')
+      code /
+      input#uid(type='text', placeholder='米游社ID', style='display: inline-block; width: 120px; height: 1.4em; line-height: 1.4em; margin: 0 4px; vertical-align: middle;')
+      code .png
+      button#get(style='margin: 10px 0;', onclick='_evt_push("click", "normal", "get_card")') Get
+      img#result(style='display: block;')
+
+      script.
+        var btn = document.getElementById('get'),
+            img = document.getElementById('result')
+
+        btn.addEventListener('click', function() {
+          var bgIdxEl = document.getElementById('bgIdx'),
+              uidEl = document.getElementById('uid')
+          var bgIdx = bgIdxEl.value ? bgIdxEl.value.trim() : ''
+          var uid = uidEl.value ? uidEl.value.trim() : ''
+          if(!uid) {
+            alert('请输入UID')
+            return
+          }
+
+          img.src = '/' + bgIdx + '/' + uid + '.png'
+        })
+
+    script.
+      document.addEventListener("DOMContentLoaded", function() {
+        var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
+      
+        if ("IntersectionObserver" in window) {
+          let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(function(entry) {
+              if (entry.isIntersecting) {
+                let lazyImage = entry.target;
+                lazyImage.src = lazyImage.dataset.src;
+                lazyImage.classList.remove("lazy");
+                lazyImageObserver.unobserve(lazyImage);
+              }
+            });
+          });
+      
+          lazyImages.forEach(function(lazyImage) {
+            lazyImageObserver.observe(lazyImage);
+          });
+        } else {
+          // Possibly fall back to event handlers here
+        }
+      });
