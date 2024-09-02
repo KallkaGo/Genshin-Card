@@ -326,7 +326,7 @@ const svg = async ({ data, skin = 0, detail = false }) => {
               }
 
               .bottom .section .desc {
-                font-size: 20px;
+                font-size: 22px;
                 margin-top: 4px;
               }
 
