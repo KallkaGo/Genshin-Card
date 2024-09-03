@@ -3,7 +3,6 @@ const path = require('path')
 const mimeType = require('mime-types')
 const Fontmin = require('fontmin-kallka')
 const ttf2woff = require('ttf2woff')
-const b2a = require('b3b').b2a
 const NodeCache = require('node-cache')
 const md5 = require('md5')
 const pino = require('pino')
