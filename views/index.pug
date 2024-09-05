@@ -65,6 +65,7 @@ html
             img = document.getElementById('result')
 
         btn.addEventListener('click', function() {
+          const lang = document.getElementById('lang').value;
           var bgIdxEl = document.getElementById('bgIdx'),
               uidEl = document.getElementById('uid')
           var bgIdx = bgIdxEl.value ? bgIdxEl.value.trim() : ''
@@ -74,7 +75,7 @@ html
             return
           }
 
-          img.src = '/' + bgIdx + '/' + uid + '.png'
+          img.src = '/' + lang + '/' + bgIdx + '/' + uid + '.png'
         })
 
     script.
