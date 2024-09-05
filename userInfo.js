@@ -2,23 +2,30 @@ const pino = require('pino')
 const NodeCache = require("node-cache")
 const http = require('./utils/http')
 const util = require('./utils/index')
-const { param } = require('.')
-
 const logger = pino({ level: process.env.LOG_LEVEL || 'info' })
+const { SocksProxyAgent } = require('socks-proxy-agent')
+
+const httpsAgent = new SocksProxyAgent('socks://127.0.0.1:10808')
 
 const roleIdCache = new NodeCache({ stdTTL: 60 * 60 * 24 * 365 })
 const cardCache = new NodeCache({ stdTTL: 60 * 60 * 24 })
 
+// const __API = {
+//   FETCH_ROLE_ID: 'https://api-takumi-record.mihoyo.com/game_record/app/card/wapi/getGameRecordCard',
+//   FETCH_ROLE_INDEX: 'https://api-takumi-record.mihoyo.com/game_record/app/genshin/api/index'
+// }
+
 const __API = {
-  FETCH_ROLE_ID: 'https://api-takumi-record.mihoyo.com/game_record/app/card/wapi/getGameRecordCard',
-  FETCH_ROLE_INDEX: 'https://api-takumi-record.mihoyo.com/game_record/app/genshin/api/index'
+  FETCH_ROLE_ID: 'https://bbs-api-os.hoyolab.com/game_record/card/wapi/getGameRecordCard',
+  FETCH_ROLE_INDEX: 'https://bbs-api-os.hoyolab.com/game_record/genshin/api/index'
 }
 
+
 const HEADERS = {
-  'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) miHoYoBBS/2.11.1',
-  'Referer': 'https://webstatic.mihoyo.com/',
-  'Cookie': process.env.COOKIE,
-  'x-rpc-app_version': '2.11.1',
+  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36',
+  'Referer': 'https://www.hoyolab.com/',
+  'Cookie': "ltoken_v2=v2_CAISDGM5b3FhcTNzM2d1OBokNTczZjVkODYtMTQ3Mi00NjEwLTkxMTctOGE2N2RjNjFlNDU5IInk5rYGKJvTs_gBML3NrssBQgtiYnNfb3ZlcnNlYVhq;ltuid_v2=426485437;",
+  'x-rpc-app_version': '1.5.0',
   'x-rpc-client_type': 5, // web
   'DS': ''
 }
@@ -33,7 +40,7 @@ const getRoleInfo = (uid) => {
     let cachedData = roleIdCache.get(key)
     if (cachedData) {
       const { game_role_id, nickname, region, region_name } = cachedData
-      logger.info('从缓存中获取角色信息, uid %s, game_role_id %s, nickname %s, region %s, region_name %s', uid, game_role_id, nickname, region, region_name)
+      logger.info('Get role information from cache, uid %s, game_role_id %s, nickname %s, region %s, region_name %s', uid, game_role_id, nickname, region, region_name)
       resolve(cachedData)
     } else {
       const qs = { uid }
@@ -46,7 +53,8 @@ const getRoleInfo = (uid) => {
           ...HEADERS,
           'Cookie': uid === MY_UID ? COOKIE_PRIVATE : HEADERS.Cookie,
           'DS': util.getDS(qs)
-        }
+        },
+        httpsAgent: httpsAgent
       })
         .then(resp => {
           // resp = JSON.parse(resp)
@@ -57,28 +65,28 @@ const getRoleInfo = (uid) => {
               const roleInfo = resp.data.list.find(_ => _.game_id === 2)
 
               if (!roleInfo) {
-                logger.warn('无角色数据, uid %s', uid)
-                reject('无角色数据，请检查输入的米哈游通行证ID是否有误（非游戏内的UID）和是否设置了公开角色信息，若操作无误则可能是被米哈游屏蔽，请第二天再试')
+                logger.warn('No character data, uid %s', uid)
+                reject('No character data. Please check whether the entered Hoyolab UID is correct (not the in-game UID) and whether the public character information is set. If the operation is correct, it may be blocked by miHoYo. Please try again the next day.')
               }
 
               const { game_role_id, nickname, region, region_name } = roleInfo
 
-              logger.info('首次获取角色信息, uid %s, game_role_id %s, nickname %s, region %s, region_name %s', uid, game_role_id, nickname, region, region_name)
+              logger.info('Get character information for the first time, uid %s, game_role_id %s, nickname %s, region %s, region_name %s', uid, game_role_id, nickname, region, region_name)
 
               roleIdCache.set(key, roleInfo)
 
               resolve(roleInfo)
             } else {
-              logger.warn('无角色数据, uid %s', uid)
-              reject('无角色数据，请检查输入的米哈游通行证ID是否有误（非游戏内的UID）和是否设置了公开角色信息，若操作无误则可能是被米哈游屏蔽，请第二天再试')
+              logger.warn('No character data, uid %s', uid)
+              reject('No character data. Please check whether the entered Hoyolab UID is correct (not the in-game UID) and whether the public character information is set. If the operation is correct, it may be blocked by miHoYo. Please try again the next day.')
             }
           } else {
-            logger.error('获取角色ID接口报错 %s', resp.message)
+            logger.error('Get role ID API error %s', resp.message)
             reject(resp.message)
           }
         })
         .catch(err => {
-          logger.error('获取角色ID接口请求报错 %o', err)
+          logger.error('Get role ID API error  %o', err)
         })
     }
   })
@@ -145,13 +153,13 @@ const userInfo = ({ uid, detail = false }) => {
               })
           } else {
 
-            const [active_day_number, achievement_number, spiral_abyss, fantasy_dramapoem] = roleInfo.data
+            const [active_day_number, character_number, achievement_number, spiral_abyss] = roleInfo.data
 
             const parsed = {
               active_day_number: active_day_number.value,
+              character_number: character_number.value,
               achievement_number: achievement_number.value,
               spiral_abyss: spiral_abyss.value,
-              fantasy_dramapoem: fantasy_dramapoem.value
             }
 
             const data = {

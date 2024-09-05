@@ -21,6 +21,7 @@
     "pino": "^9.2.0",
     "pug": "^3.0.3",
     "request": "^2.88.2",
+    "socks-proxy-agent": "^8.0.4",
     "ttf2woff": "^3.0.0"
   }
 }

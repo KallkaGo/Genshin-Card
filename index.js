@@ -6,7 +6,10 @@ const userInfo = require('./userInfo')
 const app = express()
 const path = require('path')
 
+
 const logger = pino({ level: process.env.LOG_LEVEL || 'info' })
+
+
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(compression())

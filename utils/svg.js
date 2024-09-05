@@ -54,13 +54,11 @@ const txt2woff2 = async text => {
   const key = '__woff2__' + md5(text)
 
   const fontPath = path.resolve(__dirname, '../assets/fonts/HYWenHei-55W.ttf')
-  // const fontPath = path.resolve(__dirname, '../assets/fonts/hywenhei-55w-webfont.woff2')
-
 
   return new Promise(async (resolve, reject) => {
     let cachedData = woff2Cache.get(key)
     if (cachedData) {
-      logger.info('从缓存中获取子集化字体 %s', key)
+      logger.info('Get subset font from cache %s', key)
       resolve(cachedData)
     } else {
       const fontmin = new Fontmin()
@@ -365,16 +363,16 @@ const svg = async ({ data, skin = 0, detail = false }) => {
                     <div class="desc">活跃天数</div>
                   </div>
                   <div class="section achievement-number">
+                    <div class="val">{{character_number}}</div>
+                    <div class="desc">角色数量</div>
+                  </div>
+                  <div class="section spiral-abyss">
                     <div class="val">{{achievement_number}}</div>
                     <div class="desc">成就达成</div>
                   </div>
-                  <div class="section spiral-abyss">
+                  <div class="section fantasy-dramapoem">
                     <div class="val">{{spiral_abyss}}</div>
                     <div class="desc">深境螺旋</div>
-                  </div>
-                  <div class="section fantasy-dramapoem">
-                    <div class="val">{{fantasy_dramapoem}}</div>
-                    <div class="desc">幻想剧诗</div>
                   </div>
                   <div class="section world-exploration">
                     <div class="val">{{world_exploration}}<span class="text percent">%</span></div>
