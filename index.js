@@ -23,13 +23,13 @@ const CACHE_10800 = 'max-age=10800'
 
 
 
-app.get('/:skin/:uid\.png', (req, res) => {
-  const { skin, uid } = req.params
+app.get('/:language/:skin/:uid\.png', (req, res) => {
+  const { skin, uid, language } = req.params
   logger.info('Receive request uid:%s, skin:%s', uid, skin)
 
   userInfo({ uid })
     .then(data => {
-      svg({ data, skin })
+      svg({ data, skin, language })
         .then(svgImage => {
           res.set({
             'content-type': 'image/svg+xml',
