@@ -5,33 +5,29 @@ const util = require('./utils/index')
 const logger = pino({ level: process.env.LOG_LEVEL || 'info' })
 const { SocksProxyAgent } = require('socks-proxy-agent')
 
-const httpsAgent = new SocksProxyAgent('socks://127.0.0.1:10808')
+// const httpsAgent = new SocksProxyAgent('socks://127.0.0.1:10808')
 
 const roleIdCache = new NodeCache({ stdTTL: 60 * 60 * 24 * 365 })
 const cardCache = new NodeCache({ stdTTL: 60 * 60 * 24 })
-
-// const __API = {
-//   FETCH_ROLE_ID: 'https://api-takumi-record.mihoyo.com/game_record/app/card/wapi/getGameRecordCard',
-//   FETCH_ROLE_INDEX: 'https://api-takumi-record.mihoyo.com/game_record/app/genshin/api/index'
-// }
 
 const __API = {
   FETCH_ROLE_ID: 'https://bbs-api-os.hoyolab.com/game_record/card/wapi/getGameRecordCard',
   FETCH_ROLE_INDEX: 'https://bbs-api-os.hoyolab.com/game_record/genshin/api/index'
 }
 
+const MY_UID = process.env.MY_UID
+const COOKIE_PRIVATE = process.env.COOKIE_PRIVATE
+
 
 const HEADERS = {
   'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36',
   'Referer': 'https://www.hoyolab.com/',
-  'Cookie': "ltoken_v2=v2_CAISDGM5b3FhcTNzM2d1OBokNTczZjVkODYtMTQ3Mi00NjEwLTkxMTctOGE2N2RjNjFlNDU5IInk5rYGKJvTs_gBML3NrssBQgtiYnNfb3ZlcnNlYVhq;ltuid_v2=426485437;",
+  'Cookie': `ltoken_v2=${process.env.LTOKEN};ltuid_v2=${process.env.HOYOLABUID};`, //HOYOLAB only care about ltuid_v2 and ltoken_v2
   'x-rpc-app_version': '1.5.0',
   'x-rpc-client_type': 5, // web
   'DS': ''
 }
 
-const MY_UID = process.env.MY_UID
-const COOKIE_PRIVATE = process.env.COOKIE_PRIVATE
 
 const getRoleInfo = (uid) => {
   const key = `__uid__${uid}`
@@ -54,12 +50,11 @@ const getRoleInfo = (uid) => {
           'Cookie': uid === MY_UID ? COOKIE_PRIVATE : HEADERS.Cookie,
           'DS': util.getDS(qs)
         },
-        httpsAgent: httpsAgent
+        // httpsAgent: httpsAgent
       })
         .then(resp => {
           // resp = JSON.parse(resp)
           resp = resp.data
-          console.log('resp', resp.data)
           if (resp.retcode === 0) {
             if (resp.data.list && resp.data.list.length > 0) {
               const roleInfo = resp.data.list.find(_ => _.game_id === 2)
@@ -108,7 +103,6 @@ const userInfo = ({ uid, detail = false }) => {
 
       getRoleInfo(uid)
         .then(roleInfo => {
-          console.log('roleInfo', roleInfo)
           const { game_role_id, region } = roleInfo
 
           const qs = { role_id: game_role_id, server: region }

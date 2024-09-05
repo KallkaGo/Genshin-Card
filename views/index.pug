@@ -1,6 +1,6 @@
 html
   head
-    title='原神卡片生成工具'
+    title='GenShin Impact Card Tool'
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='icon', type='image/png', href='favicon.png')
     link(rel='stylesheet', href='https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/light.min.css')
@@ -21,37 +21,37 @@ html
       }
 
   body
-    h3 使用方法:
+    h3 Usage:
 
-    h5 SVG 地址
-    code /{背景编号}/{米游社ID}.png
+    h5 SVG Url
+    code /{Background No.}/{HoYoLab UID}.png
 
-    h5 Img 标签
-    code &lt;img src="/{背景编号}/{米游社ID}.png" alt="genshin-card" />
+    h5 Img Tag
+    code &lt;img src="/{Background No.}/{HoYoLab UID}.png" alt="genshin-card" />
 
     h5 BBCode
-    code [img]/{背景编号}/{米游社ID}.png[/img]
+    code [img]/{Background No.}/{HoYoLab UID}.png[/img]
 
     h5 Markdown
-    code ![](/{背景编号}/{米游社ID}.png)
+    code ![](/{Background No.}/{HoYoLab UID}.png)
 
-    h3 背景编号
-    h5 <code>rand</code> 随机背景
-    h5 指定随机范围
+    h3 Background No.
+    h5 <code>rand</code> Random Background 
+    h5 Specify random range
     pre.
       2,5,9 -> [2, 5, 9]
       3-5 -> [3, 4, 5]
       3-5,7,9,12-15 -> [3, 4, 5, 7, 9, 12, 13, 14, 15]
 
-    h3 示例:
-    img(src="/rand/182779485.png" alt="示例图片")
+    h3 Example:
+    img(src="/rand/164516131.png" alt="Example Picture")
 
     h3 Tool
     .tool
       code /
       input#bgIdx(type='text', value='0', style='display: inline-block; min-width: 60px; width:60px; height: 1.4em; line-height: 1.4em; margin: 0 4px; vertical-align: middle; text-align:center; ')
       code /
-      input#uid(type='text', placeholder='米游社ID', style='display: inline-block; width: 120px; height: 1.4em; line-height: 1.4em; margin: 0 4px; vertical-align: middle;')
+      input#uid(type='text', placeholder='HoYoLab UID', style='display: inline-block; width: 130px; height: 1.4em; line-height: 1.4em; margin: 0 4px; vertical-align: middle;')
       code .png
       button#get(style='margin: 10px 0;', onclick='_evt_push("click", "normal", "get_card")') Get
       img#result(style='display: block;')
@@ -66,7 +66,7 @@ html
           var bgIdx = bgIdxEl.value ? bgIdxEl.value.trim() : ''
           var uid = uidEl.value ? uidEl.value.trim() : ''
           if(!uid) {
-            alert('请输入UID')
+            alert('Please enter UID')
             return
           }
 

@@ -123,6 +123,8 @@ const svg = async ({ data, skin = 0, detail = false }) => {
 
   const woff2 = await txt2woff2(data.nickname)
 
+  const flag = data.region_name === 'Asia Server'
+
   return new Promise((resolve, reject) => {
     const tpl = `<?xml version="1.0" encoding="UTF-8"?>
       <svg width="500" height="165" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -302,7 +304,7 @@ const svg = async ({ data, skin = 0, detail = false }) => {
                 flex-direction: column;
                 align-items: center;
                 justify-content: space-around;
-                min-width: 130px;
+                min-width: ${flag ? '130px' : '160px'};
                 margin-right: 12px;
                 line-height: 1;
                 z-index: 1;
@@ -360,23 +362,23 @@ const svg = async ({ data, skin = 0, detail = false }) => {
                 <div class="bottom">
                   <div class="section active-days">
                     <div class="val">{{active_day_number}}</div>
-                    <div class="desc">活跃天数</div>
+                    <div class="desc">${flag ? '活跃天数' : 'Days Active'}</div>
                   </div>
                   <div class="section achievement-number">
                     <div class="val">{{character_number}}</div>
-                    <div class="desc">角色数量</div>
+                    <div class="desc">${flag ? '角色数量' : 'Characters'}</div>
                   </div>
                   <div class="section spiral-abyss">
                     <div class="val">{{achievement_number}}</div>
-                    <div class="desc">成就达成</div>
+                    <div class="desc">${flag ? '成就达成' : 'Achievements'}</div>
                   </div>
                   <div class="section fantasy-dramapoem">
                     <div class="val">{{spiral_abyss}}</div>
-                    <div class="desc">深境螺旋</div>
+                    <div class="desc">${flag ? '深境螺旋' : 'Spiral Abyss'}</div>
                   </div>
                   <div class="section world-exploration">
                     <div class="val">{{world_exploration}}<span class="text percent">%</span></div>
-                    <div class="desc">世界探索</div>
+                    <div class="desc">${flag ? '世界探索' : 'World Exploration'}</div>
                   </div>
                 </div>
               </div>
