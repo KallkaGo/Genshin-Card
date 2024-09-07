@@ -304,7 +304,7 @@ const svg = async ({ data, skin = 0, detail = false }) => {
                 flex-direction: column;
                 align-items: center;
                 justify-content: space-around;
-                min-width: 130px;
+                min-width: 160px;
                 margin-right: 12px;
                 line-height: 1;
                 z-index: 1;
@@ -325,7 +325,7 @@ const svg = async ({ data, skin = 0, detail = false }) => {
               }
 
               .bottom .section .desc {
-                font-size: 22px;
+                font-size: 26px;
                 margin-top: 4px;
               }
 
