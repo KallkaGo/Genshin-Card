@@ -2,7 +2,7 @@ const pino = require('pino')
 const NodeCache = require("node-cache")
 const http = require('./utils/http')
 const util = require('./utils/index')
-const { param } = require('.')
+
 
 const logger = pino({ level: process.env.LOG_LEVEL || 'info' })
 

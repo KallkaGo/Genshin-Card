@@ -19,7 +19,7 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ
 abcdefghijklmnopqrstuvwxyz
 1234567890 
 "!\`?'.,;:()[]{}<>|/@\\^$-%+=#_&~*
-活跃天数角色数量成就达成深境螺旋世界探索幻想剧诗
+活跃天数角色数量成就达成深境螺旋世界探索幻想真境剧诗
 `
 
 fs.readdirSync(skinPath).forEach(img => {
@@ -374,7 +374,7 @@ const svg = async ({ data, skin = 0, detail = false }) => {
                   </div>
                   <div class="section fantasy-dramapoem">
                     <div class="val">{{fantasy_dramapoem}}</div>
-                    <div class="desc">幻想剧诗</div>
+                    <div class="desc">幻想真境剧诗</div>
                   </div>
                   <div class="section world-exploration">
                     <div class="val">{{world_exploration}}<span class="text percent">%</span></div>
