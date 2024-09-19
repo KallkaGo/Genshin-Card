@@ -19,7 +19,7 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ
 abcdefghijklmnopqrstuvwxyz
 1234567890 
 "!\`?'.,;:()[]{}<>|/@\\^$-%+=#_&~*
-活跃天数角色数量成就达成深境螺旋世界探索幻想真境剧诗
+活跃天数角色数量成就达成深境螺旋世界探索幻想真境剧诗天空岛世界树
 `
 
 fs.readdirSync(skinPath).forEach(img => {
@@ -211,6 +211,13 @@ const svg = async ({ data, skin = 0, detail = false }) => {
                 font-weight: bold;
               }
 
+              .name-wrap .server {
+                margin-top: 12px;
+                margin-left: 8px;
+                font-size: 24px;
+                font-weight: bold;
+              }
+
               .user-info .uid {
                 font-size: 26px;
                 margin-top: 2px;
@@ -349,6 +356,7 @@ const svg = async ({ data, skin = 0, detail = false }) => {
                     <div class="name-wrap">
                       <div class="name">{{nickname}}</div>
                       <div class="level">Lv.{{level}}</div>
+                      <div class="server">{{region_name}}</div>
                     </div>
                     <div class="uid">UID: {{uid}}</div>
                   </div>
