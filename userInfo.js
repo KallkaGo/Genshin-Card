@@ -51,7 +51,6 @@ const getRoleInfo = (uid) => {
         .then(resp => {
           // resp = JSON.parse(resp)
           resp = resp.data
-          console.log('resp', resp.data)
           if (resp.retcode === 0) {
             if (resp.data.list && resp.data.list.length > 0) {
               const roleInfo = resp.data.list.find(_ => _.game_id === 2)
@@ -100,7 +99,6 @@ const userInfo = ({ uid, detail = false }) => {
 
       getRoleInfo(uid)
         .then(roleInfo => {
-          console.log('roleInfo', roleInfo)
           const { game_role_id, region } = roleInfo
 
           const qs = { role_id: game_role_id, server: region }
