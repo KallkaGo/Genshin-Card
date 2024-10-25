@@ -3,7 +3,8 @@ Generate Genshin Impact Card
 
 ## Tutorial：[portal](https://genshin-card-kallka.vercel.app/)
 
-![image](https://github.com/user-attachments/assets/8958680e-e50d-4c93-b84a-d04e878f5fc9)
+![QQ_1729825364763](https://github.com/user-attachments/assets/76636a55-ec94-48e7-86c0-978ea1c17640)
+
 
 ## 归属
 
