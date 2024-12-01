@@ -1,10 +1,36 @@
-# Genshin-Card
-Generate Genshin Impact Card 
+> **基于 [journey-ad/genshin-impact-card](https://genshin-card.getloli.com/) 和https://github.com/teppyboy/Genshin-Card所改进的适配vercel的版本，并在其基础上做了一些修改**
 
-## Tutorial：[portal](https://genshin-card-kallka.vercel.app/)
+# Genshin-Card
+
+原神玩家信息卡片生成器
+
+## 食用方法：[传送门](https://genshin-card-kallka.vercel.app/)
 
 ![QQ_1729825364763](https://github.com/user-attachments/assets/76636a55-ec94-48e7-86c0-978ea1c17640)
 
+## 致谢
+
+- [repl.it](https://repl.it/)
+
+- [fontmin](https://github.com/ecomfe/fontmin)
+
+- [汉仪文黑](https://www.hanyi.com.cn/productdetail.php?id=989&type=0)
+
+- [miHoYo](https://www.mihoyo.com)
+
+- [journey-ad](https://github.com/journey-ad)
+
+- [teppyboy](https://github.com/teppyboy)
+
+  
+
+## 美术作品版权
+
+-   [miHoYo](https://www.mihoyo.com)
+-   [journey-ad](https://github.com/journey-ad)
+-   [V–旅行者](https://bbs.nga.cn/read.php?tid=24827770)
+-   [TiMEO](https://www.pixiv.net/artworks/86829113)
+-   [みーな](https://www.pixiv.net/artworks/85194788)
 
 ## 归属
 
