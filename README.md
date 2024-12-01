@@ -1,4 +1,4 @@
-> **基于 [journey-ad/genshin-impact-card](https://genshin-card.getloli.com/) 和https://github.com/teppyboy/Genshin-Card所改进的适配vercel的版本，并在其基础上做了一些修改**
+> **基于 [journey-ad/genshin-impact-card](https://genshin-card.getloli.com/)  和 [teppyboy/Genshin-Card](https://github.com/teppyboy/Genshin-Card) 所改进的适配vercel的版本，并在其基础上做了一些修改**
 
 # Genshin-Card
 
